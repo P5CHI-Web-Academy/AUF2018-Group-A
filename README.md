@@ -19,7 +19,7 @@ Our Application components:
 \*\* optional. May be used for Animations and so on.
 
 Project Architecture:
-
+![alt text](https://github.com/P5CHI-Web-Academy/AUF2018-Group-A/blob/fix-5150/arch_scheme.png)
 1) **Vapor**
 Reference: [https://vapor.codes](https://vapor.codes)
 Vapor is a Web Framework for Swift that works on macOS and Ubuntu, and all of the packages that Vapor offers.

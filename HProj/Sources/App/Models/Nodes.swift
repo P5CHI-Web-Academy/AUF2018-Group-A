@@ -1,6 +1,5 @@
 import Foundation
 
-
 fileprivate let JSON_URL_STRING = "https://jsonplaceholder.typicode.com/todos/1"
 
 struct Some {
@@ -39,13 +38,15 @@ struct Some {
  }
 
  func parseJSON(_ data: Data) -> Some? {
-   guard let json = try JSONSerialization.jsonObject(with: data, options: [])
-        as? [String: Any] else {
-          print("error trying to convert data to JSON")
-          return nil
-    } catch error {
-        print ("error")
+    do {
+        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+        if let json = json {
+            return Some(json: json)
+        }
     }
-
-    return Some(json: json)
+    catch {
+        print("error trying to convert data to JSON")
+        return nil
+    }
+    return nil
  }

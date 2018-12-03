@@ -2,6 +2,12 @@
 #
 .DS_Store
 
+#linux
+._.DS_Store
+
+#python
+__pycache__
+._*
 # Xcode
 #
 build/

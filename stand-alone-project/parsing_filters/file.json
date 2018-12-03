@@ -1,0 +1,39 @@
+[
+    {
+      "from": "#1",
+      "to": "#2",
+      "auto": {
+        "distance": 2,
+        "price": 12,
+        "time": 30
+      },
+      "train": {
+        "distance": 1,
+        "price": 8,
+        "time": 25
+      },
+      "plane": {
+        "distance": 0.8,
+        "price": 50,
+        "time": 10
+      }
+    },
+    {
+        "from": "#1",
+        "to": "#3",
+        "auto": {
+          "distance": 1,
+          "price": 12,
+          "time": 30
+        },
+        "train": null,
+        "plane": null
+      },
+      {
+        "from": "#1",
+        "to": "#3",
+        "auto": null,
+        "train": null,
+        "plane": null
+    }
+  ]

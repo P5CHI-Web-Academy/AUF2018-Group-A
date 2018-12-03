@@ -59,17 +59,3 @@ def dijkstra(edges, source, dest):
 
 def total_cost(edges):
     return sum(edge.cost for edge in edges)
-
-
-# testing. delete for prod
-edges = [Edge("a", "b", 7),  Edge("a", "c", 9),  Edge("a", "f", 14), Edge("b", "c", 10),
-    Edge("b", "d", 15), Edge("c", "d", 11), Edge("c", "f", 2),  Edge("d", "e", 6),
-    Edge("e", "f", 9)]
-
-results = dijkstra(edges, "a", "e")
-
-print("covered edges:")
-for res in results: 
-    print(res.start, res.end, res.cost)
-
-print("total cost:", total_cost(results))

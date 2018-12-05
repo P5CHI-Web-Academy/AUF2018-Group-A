@@ -1,6 +1,5 @@
-from enum import Enum
 
-class CostFunction(Enum):
+class CostFunction:
     price = 1
     time = 2
     distance = 3

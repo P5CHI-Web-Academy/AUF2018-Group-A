@@ -1,7 +1,8 @@
-from HProj.helpers import JsonParser
-from HProj.Carriage import *
+from HProj.helpers import jsonParser
+from HProj.models import Carriage
 
-class CarriageType(Enum): 
+
+class CarriageType: 
     auto = 1
     train = 2
     plane = 3
@@ -24,11 +25,11 @@ class Path:
         if json_data["plane"]:
             self.plane = Carriage(json_data["plane"])
 
-    def get_cost_filtered_by(self, carriange_type, cost_param):
-        if carriange_type == CarriageType.auto:
+    def get_cost_filtered_by(self, carriage_type, cost_param):
+        if carriage_type == CarriageType.auto:
             if self.auto != None:
                 return self.auto.get_cost_by_param(cost_param)
-        elif carriange_type == CarriageType.train:
+        elif carriage_type == CarriageType.train:
             if self.train != None:
                 return self.train.get_cost_by_param(cost_param)
         else:

@@ -1,5 +1,12 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from HProj.dijkstra import dijkstra
 
 
-def index(request):
-    return HttpResponse("Return response here")
+def sample(request):
+    data = {
+        'start': 'Raghav',
+        'end': 'India',
+        'cost': 28
+    }
+    return JsonResponse(data)
+

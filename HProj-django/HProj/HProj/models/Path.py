@@ -1,5 +1,5 @@
-from HProj.helpers import jsonParser
-from HProj.models import Carriage
+from HProj.helpers.jsonParser import get_data_from_file, get_data_from_url
+from HProj.models.Carriage import Carriage
 
 
 class CarriageType: 

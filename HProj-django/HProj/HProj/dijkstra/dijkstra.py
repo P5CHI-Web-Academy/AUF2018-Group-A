@@ -52,5 +52,3 @@ def dijkstra(edges, source, dest):
                     path.append(edge)
     return path
 
-def total_cost(edges):
-    return sum(edge.cost for edge in edges)

@@ -16,9 +16,15 @@ def neighbours(edges):
         neighbours[edge.start].add((edge.end, edge.cost))
     return neighbours
 
-def dijkstra(edges, source, dest):
-    assert source in all_vertices(edges), 'Such source node doesn\'t exist'
+def doubled_edges(edges):
+    inverted_edges = [] 
+    for edge in edges:
+        inverted_edges.append(Edge(edge.end, edge.start, edge.cost))
+        inverted_edges.append(edge)
+    return inverted_edges 
 
+def dijkstra(base_edges, source, dest):
+    edges = doubled_edges(base_edges)
     distances = {vertex: inf for vertex in all_vertices(edges)}
     previous_vertices = {vertex: None for vertex in all_vertices(edges)}
     distances[source] = 0

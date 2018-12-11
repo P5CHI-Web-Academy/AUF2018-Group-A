@@ -1,12 +1,22 @@
+import csv
 from django.http import HttpResponse, JsonResponse
 from HProj.dijkstra import dijkstra
-from rest_framework import status
-from rest_framework.decorators import api_view
 from HProj.dijkstra.dijkstra_runner import dijkstra_mock, dijkstra_dict, total_cost
 from HProj.models.Edge import Edge
-import csv
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.viewsets import ModelViewSet
 
 @api_view(['GET', 'POST'])
+# def open_edges(request):
+#     """
+#     Open edges json from given URL, return  vertices list.
+#     """
+#     if request.method == 'POST':
+#         print("gere")
+        
+
+
 def sample(request):
     if request.method == 'GET':
         data = dijkstra_dict()

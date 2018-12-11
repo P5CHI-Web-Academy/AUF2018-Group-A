@@ -1,16 +1,12 @@
 from HProj.dijkstra.dijkstra import dijkstra
-from HProj.helpers.jsonParser import get_data_from_url
-from HProj.models.Path import Path, CarriageType
-from HProj.models.Carriage import CostFunction, Carriage
-from HProj.models.Edge import Edge
+from HProj.helpers.paths_filter import get_edges_from_url
+
 
 def total_cost(edges):
     return sum(edge.cost for edge in edges)
 
 def dijkstra_mock():
-    dataArray = get_data_from_url('https://raw.githubusercontent.com/P5CHI-Web-Academy/AUF2018-Group-A/master/stand-alone-project/parsing_filters/file.json')
-    paths = [Path(data) for data in dataArray]
-    edges = Edge.edges_from_paths_by_filtering(paths, CarriageType.auto, CostFunction.time)
+    edges = get_edges_from_url('https://raw.githubusercontent.com/P5CHI-Web-Academy/AUF2018-Group-A/master/stand-alone-project/parsing_filters/file.json')
 
     covered_edges = dijkstra(edges, "#1", "#5")
     return covered_edges

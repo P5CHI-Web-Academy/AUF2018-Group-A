@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, FlatList,} from 'react-native';
+import { StyleSheet, Text, View, FlatList} from 'react-native';
 
 
-export default class FlatList extends Component {
+export class EdgesList extends Component {
 
     constructor(props) {
         super(props);
@@ -16,20 +16,7 @@ export default class FlatList extends Component {
 
     componentDidMount() {
         this.setState({ isLoading: true });
-
-        fetch(API + DEFAULT_QUERY)
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Something went wrong ...');
-                }
-            })
-            .then(data => this.setState({ hits: data.hits, isLoading: false }))
-            .catch(error => this.setState({ error, isLoading: false }));
     }
-
-
 
     renderItem = ({item}) => {
         return (

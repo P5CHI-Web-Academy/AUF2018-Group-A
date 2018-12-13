@@ -20,4 +20,5 @@ class Carriage:
         elif cost_param == CostFunction.time:
             return self.time
         else:
-             return self.distance
+            return self.distance
+            

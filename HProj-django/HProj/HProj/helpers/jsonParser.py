@@ -7,5 +7,6 @@ def get_data_from_file(file_path):
         return json_data
     
 def get_data_from_url(url):
+    url =  url[:-1] if url[-1] == '\n' else url
     data = urlopen(url)
     return json.loads(data.read())

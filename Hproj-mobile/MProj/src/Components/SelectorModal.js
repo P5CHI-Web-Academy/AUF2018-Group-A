@@ -66,7 +66,7 @@ export default class SelectorModal extends Component {
                     <TouchableOpacity
                         style={[Style.modalButton]}
                         onPress={this.hideModal}>
-                        <Text style={[Style.text]}>{"Cancel"}</Text>
+                        <Text style={[Style.text]}>{"CANCEL"}</Text>
                     </TouchableOpacity>
                 </View>
             </Modal>
@@ -99,7 +99,7 @@ export default class SelectorModal extends Component {
 
 const Style = StyleSheet.create({
     rootView: {
-        backgroundColor: "#b0c4de",
+        backgroundColor: "#009688",
         width: 100,
         height: 50,
         borderRadius:46
@@ -111,10 +111,10 @@ const Style = StyleSheet.create({
         alignItems: 'center'
     },
     text: {
-        color: "#f5f5f5"
+        color: "#E0F2F1"
     },
     selectionText: {
-        color: "#f5f5f5",
+        color: "#212121",
         fontWeight: "bold"
     },
 
@@ -131,7 +131,7 @@ const Style = StyleSheet.create({
     },
     list: {
         marginBottom: 20,
-        backgroundColor: "white",
+        backgroundColor: "#F5F5F5",
         height: 100,
         borderRadius:10,
         overflow: "hidden"
@@ -140,7 +140,7 @@ const Style = StyleSheet.create({
         flexDirection: "column",
         padding: 12,
         alignItems: 'center',
-        backgroundColor: "#696969",
+        backgroundColor: "#006064",
         height: 50,
         borderRadius:10
     },
@@ -153,11 +153,11 @@ const Style = StyleSheet.create({
         borderRadius:10
     },
     itemText: {
-        fontSize: 16
+        fontSize: 18
     },
     itemContainerSelected: {
         padding: 15,
-        backgroundColor: "#696969"
+        backgroundColor: "#26A69A"
     },
     itemTextSelected: {
         fontSize: 16,

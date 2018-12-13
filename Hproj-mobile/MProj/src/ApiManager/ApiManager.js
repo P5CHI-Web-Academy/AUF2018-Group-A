@@ -18,10 +18,10 @@ export class ApiManager {
         let url = parameters.url;
 
         let utf8 = require('utf8');
-        let binaryToBase64 = require('binaryToBase64');
         let bytes = utf8.encode(url);
-        let encoded = binaryToBase64(bytes);
-        return fetch(BASE_URL + 'sample')
+        let encoded = base64.encode(bytes);
+        console.log(encoded)
+        return fetch(BASE_URL + `vertices?json_path=${encoded}`)
             .then((response) => response.json())
             .then((responseJson) => {
                 console.log(responseJson);
@@ -61,9 +61,8 @@ export class ApiManager {
         if (parameters.costFunction) {
             optionalParams += `&cost_function=${encodeURIComponent(parameters.costFunction)}`
         }
-        console.log(optionalParams)
         return fetch(BASE_URL + mainParams + optionalParams)
-            .then((response) => response.text())
+            .then((response) => response.json())
             .then((responseJson) => {
                 console.log(responseJson);
                 onSuccess && onSuccess(responseJson);
@@ -72,6 +71,31 @@ export class ApiManager {
                 console.error(error);
                 onFailure && onFailure(error);
             });
+    }
+
+    static send_csv_mail(parameters, onSuccess, onFailure) {
+        let encodedUrl = parameters.encodedUrl;
+        let from = parameters.from;
+        let to = parameters.to;
+        let mainParams = `csv?json_path=${encodedUrl}&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`
+        let optionalParams =``
+        if (parameters.carriageType) {
+            optionalParams += `&carriage_type=${encodeURIComponent(parameters.carriageType)}`
+        }
+        if (parameters.costFunction) {
+            optionalParams += `&cost_function=${encodeURIComponent(parameters.costFunction)}`
+        }
+        return fetch(BASE_URL + mainParams + optionalParams)
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson);
+                onSuccess && onSuccess(responseJson);
+            })
+            .catch((error) => {
+                console.error(error);
+                onFailure && onFailure(error);
+            });
+
     }
     
 }

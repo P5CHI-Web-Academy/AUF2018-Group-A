@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, TouchableOpacity, Text, StyleSheet, Modal, FlatList} from "react-native";
+import {View, TouchableOpacity, Text, StyleSheet, Modal, FlatList, SafeAreaView} from "react-native";
 
 export default class SelectorModal extends Component {
 
@@ -54,7 +54,7 @@ export default class SelectorModal extends Component {
                 visible={this.state.isModalVisible}
                 onRequestClose={this.hideModal}
             >
-                <View style={[Style.modalContentView]}>
+                <SafeAreaView style={[Style.modalContentView]}>
                     <FlatList
                         data={this.props.data}
                         keyExtractor={this.keyExtractor}
@@ -68,7 +68,7 @@ export default class SelectorModal extends Component {
                         onPress={this.hideModal}>
                         <Text style={[Style.text]}>{"CANCEL"}</Text>
                     </TouchableOpacity>
-                </View>
+                </SafeAreaView>
             </Modal>
         );
     };

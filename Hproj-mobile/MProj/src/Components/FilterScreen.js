@@ -1,23 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import SelectorModal from "./SelectorModal";
-
-
-const Nodes = {
-    Node1: "Node 1",
-    Node2: "Node 2",
-    Node3: "Node 3",
-    Node4: "Node 4",
-    Node5: "Node 5",
-    Node6: "Node 6",
-    Node7: "Node 7",
-    Node8: "Node 8",
-    Node9: "Node 9",
-    Node10: "Node 10",
-    Node11: "Node 11",
-    Node12: "Node 12"
-};
-
+import {ApiManager} from "../ApiManager/ApiManager";
+import {NavigationActions} from "react-navigation";
 
 const CarriageType = {
     Auto: "Auto",
@@ -27,10 +12,9 @@ const CarriageType = {
 
 const CostType = {
     Price: "Price",
-    Distance: "Distance",
-    Time: "Time"
+    Time: "Time",
+    Distance: "Distance"
 };
-
 
 export default class FilterScreen extends Component {
 
@@ -40,49 +24,97 @@ export default class FilterScreen extends Component {
         this.state = {
             selectedInitialNodeIndex: null,
             selectedFinalNodeIndex: null,
-            selectedCarriageIndex: null,
-            selectedCostIndex: null
+            selectedInitialNodeItem: null,
+            selectedFinalNodeItem: null,
+            selectedCarriageIndex: 0,
+            selectedCostIndex: 0,
+            nodes: this.props.navigation.state.params.response[`vertices`].sort(),
+            encodedUrl: this.props.navigation.state.params.response[`path`]
         };
+    }
+
+    componentDidMount() {
+        console.log("Nodes: ", this.state.nodes);
+        console.log("path: ", this.state.encodedUrl)
     }
 
     onSelectInitialNode = (item, index) => {
         this.setState({
-            selectedInitialNodeIndex: index
+            selectedInitialNodeIndex: index,
+            selectedInitialNodeItem: item,
+            selectedFinalNodeItem: null,
+            selectedFinalNodeIndex: null
         });
     };
+
     onSelectFinalNode = (item, index) => {
         this.setState({
-            selectedFinalNodeIndex: index
+            selectedFinalNodeIndex: index,
+            selectedFinalNodeItem: item,
         });
     };
+
     onSelectCarriage = (item, index) => {
         this.setState({
             selectedCarriageIndex: index
         });
     };
+
     onSelectCost = (item, index) => {
         this.setState({
             selectedCostIndex: index
         });
     };
+
     onValidate = () => {
-        alert("Will be validated!")
-    };
+        if (!this.state.selectedInitialNodeItem || !this.state.selectedFinalNodeItem) {
+            alert("Please select Initial and final Nodes")
+            return
+        }
+
+        const getParams =  {
+            encodedUrl: 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1A1Q0hJLVdlYi1BY2FkZW15L0FVRjIwMTgtR3JvdXAtQS9tYXN0ZXIvc3RhbmQtYWxvbmUtcHJvamVjdC9wYXJzaW5nX2ZpbHRlcnMvZmlsZS5qc29uCg==',
+            from: this.state.selectedInitialNodeItem,
+            to: this.state.selectedFinalNodeItem,
+            carriageType: this.state.selectedCarriageIndex + 1,
+            costFunction: this.state.selectedCostIndex + 1
+        };
+
+        ApiManager.get_covered_edges(
+            getParams,
+            response => {
+                console.log("The response in the controller is: ", response);
+                const navigateAction = NavigationActions.navigate({
+                    routeName: 'Edges',
+                    params: {response: response,
+                            getParams: getParams },
+                    action: NavigationActions.navigate({ routeName: 'Edges' }),
+                });
+
+                this.props.navigation.dispatch(navigateAction);
+            },
+            error => {
+                alert(error);
+            }
+        )
+
+    }
+
     render() {
         return (
-            <View style={[Style.rootVIew, this.props.style]}>
+            <View style={[Style.rootView, this.props.style]}>
                 <SelectorModal
                     title={"FROM"}
                     onSelect={this.onSelectInitialNode}
                     selectedIndex={this.state.selectedInitialNodeIndex}
-                    data={Object.keys(Nodes).map(key => Nodes[key])}
+                    data={this.state.nodes}
                     style={Style.marginTop}
                 />
                 <SelectorModal
                     title={"TO"}
                     onSelect={this.onSelectFinalNode}
                     selectedIndex={this.state.selectedFinalNodeIndex}
-                    data={Object.keys(Nodes).map(key => Nodes[key])}
+                    data={this.state.nodes.filter((el, index) => index !==  this.state.selectedInitialNodeIndex)}
                     style={Style.marginTop}
                 />
                 <SelectorModal
@@ -113,7 +145,7 @@ export default class FilterScreen extends Component {
 }
 
 const Style = StyleSheet.create({
-    rootVIew: {
+    rootView: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",

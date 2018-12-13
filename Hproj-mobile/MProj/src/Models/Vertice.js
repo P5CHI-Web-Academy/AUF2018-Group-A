@@ -1,8 +1,5 @@
-'use strict'
 
-
-
-class Vertices {
+export class Vertices {
     name
     position_x
     position_y
@@ -14,4 +11,3 @@ class Vertices {
 
         }
     }
-export default class Vertice;

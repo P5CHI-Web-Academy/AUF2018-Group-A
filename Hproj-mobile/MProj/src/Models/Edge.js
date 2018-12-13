@@ -1,7 +1,5 @@
-'use strict'
 
-
-class Edge {
+export class Edge {
     start
     end
     cost
@@ -14,4 +12,3 @@ class Edge {
 
         }
     }
-export default class Edge;

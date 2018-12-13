@@ -76,6 +76,7 @@ export default class FilterScreen extends Component {
                     onSelect={this.onSelectInitialNode}
                     selectedIndex={this.state.selectedInitialNodeIndex}
                     data={Object.keys(Nodes).map(key => Nodes[key])}
+                    style={Style.marginTop}
                 />
                 <SelectorModal
                     title={"TO"}
@@ -103,7 +104,7 @@ export default class FilterScreen extends Component {
                     onPress={this.onValidate}
                     style={[Style.buttonAlert]}
                 >
-                    <Text style={[Style.buttonAlertLabel]}>Validate</Text>
+                    <Text style={[Style.buttonAlertLabel]}>NEXT</Text>
                 </TouchableOpacity>
 
             </View>
@@ -117,21 +118,26 @@ const Style = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         padding: 20 ,
-        backgroundColor: "white"
+        backgroundColor: "#e8f5e9"
     },
     marginTop: {
-        marginTop: 15
+        marginTop: 15,
+        height: 55,
+        width: 150,
+        borderRadius:20
     },
 
     buttonAlert: {
-        justifyContent: "flex-end",
-        borderRadius: 75,
-        backgroundColor: "blue",
         padding: 15,
+        alignItems: 'center',
         marginTop: 40,
+        backgroundColor: "#00e676",
+        height: 55,
+        width: 150,
+        borderRadius:20
     },
     buttonAlertLabel: {
-        color: "grey"
+        color: "white"
 
     }
 

@@ -6,7 +6,8 @@ from HProj.models.Edge import Edge
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.viewsets import ModelViewSet
-
+from django.core.mail import EmailMessage, send_mail
+from io import StringIO
 @api_view(['GET'])
 def get_vertices(request):
     json_path = request.GET.get('json_path')
@@ -53,13 +54,25 @@ def get_csv(request):
 
     covered_edges = perform_dijkstra(json_path, from_vertice, to_vertice, carriage_type, cost_function)
 
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="covered_edges.csv"'
-    writer = csv.writer(response)
+    csvfile = StringIO()
+    writer = csv.writer(csvfile)
     writer.writerow(['Start', 'End', 'Cost'])
-    
+
     for edge in covered_edges:
         writer.writerow([edge.start, edge.end, edge.cost])
     
     writer.writerow(['', 'Total', total_cost(covered_edges)])
-    return response
+
+    email = EmailMessage(
+    subject='CSV File',
+    body='This is the CSV File you requested \n',
+    from_email='HProjServer@pentalog.com',
+    to=['vciumac@pentalog.com'])
+    email.attach('covered_edges.csv', csvfile.getvalue(), 'text/csv')
+    mail_status = email.send()
+
+    if mail_status == 1:
+        return JsonResponse({'status': 'success'})
+    else:
+        data = {'error': 'failed to send mail'}
+        return JsonResponse(data=data, status=400)

@@ -31,7 +31,7 @@ def get_covered_edges(request):
         return JsonResponse(data=data, status=400)
 
     covered_edges = perform_dijkstra(json_path, from_vertice, to_vertice, carriage_type, cost_function)
-    data = dijkstra_dict(covered_edges)
+    data = dijkstra_dict(covered_edges, json_path)
     return JsonResponse(data)
 
 @api_view(['GET'])

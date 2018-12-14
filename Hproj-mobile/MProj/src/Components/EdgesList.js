@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import {ApiManager} from "../ApiManager/ApiManager";
+import Dialog from "react-native-dialog";
 
 
 export class EdgesList extends Component {
@@ -21,19 +22,14 @@ export class EdgesList extends Component {
         };
     }
 
-    componentDidMount() {
-        this.setState({ isLoading: true });
-        console.log(this.state)
-    }
-
     onSendCSV = () => {
         ApiManager.send_csv_mail(
             this.state.getParams,
             response => {
-                alert("Success!")
+                alert("Email was sent successfully")
             },
             error => {
-                alert(error);
+                alert("An unexpected error occurred ", error.code);
             }
         );
     }
